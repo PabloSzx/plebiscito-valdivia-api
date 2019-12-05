@@ -4,6 +4,7 @@ import "./src/db";
 import axios from "axios";
 import express from "express";
 import morgan from "morgan";
+import { resolve } from "path";
 import qs from "qs";
 import { generate } from "randomstring";
 import requireEnv from "require-env-variable";
@@ -34,16 +35,21 @@ const app = express();
 
 app.use(morgan("combined"));
 
+app.use("/static", express.static(resolve(__dirname, "../static")));
+
 app.get("/login", async (req, res) => {
-  if (req.query.real) {
-    res.redirect(
-      `https://accounts.claveunica.gob.cl/openid/authorize?client_id=${CLAVE_UNICA_CLIENT_ID}&response_type=code&scope=openid run name email&redirect_uri=${redirect_uri_real}&state=${state}`
-    );
-  } else {
-    res.redirect(
-      `https://accounts.claveunica.gob.cl/openid/authorize?client_id=${CLAVE_UNICA_SANDBOX_CLIENT_ID}&response_type=code&scope=openid run name email&redirect_uri=${redirect_uri_testing}&state=${state}`
-    );
-  }
+  const RedirectUrl = req.query.real
+    ? `https://accounts.claveunica.gob.cl/openid/authorize?client_id=${CLAVE_UNICA_CLIENT_ID}&response_type=code&scope=openid run name email&redirect_uri=${redirect_uri_real}&state=${state}`
+    : `https://accounts.claveunica.gob.cl/openid/authorize?client_id=${CLAVE_UNICA_SANDBOX_CLIENT_ID}&response_type=code&scope=openid run name email&redirect_uri=${redirect_uri_testing}&state=${state}`;
+  res.send(
+    `<html>
+      <body>
+        <a href="${RedirectUrl}">
+          <img src=/static/btn_claveunica_202px.png />
+        </a>
+      </body>
+    </html>`
+  );
 });
 
 app.get("/testing/clave_unica/redirect", async (req, res) => {
