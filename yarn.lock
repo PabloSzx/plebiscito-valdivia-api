@@ -71,10 +71,10 @@
   resolved "https://registry.yarnpkg.com/@types/mime/-/mime-2.0.1.tgz#dc488842312a7f075149312905b5e3c0b054c79d"
   integrity sha512-FwI9gX75FgVBJ7ywgnq/P7tw+/o1GUbtP0KzbtusLigAOgIgNISRK0ZPl4qertvXSIE8YbsVJueQ90cDt9YYyw==
 
-"@types/mongodb@*", "@types/mongodb@^3.3.11":
-  version "3.3.11"
-  resolved "https://registry.yarnpkg.com/@types/mongodb/-/mongodb-3.3.11.tgz#8db69d44cd3845a8867452c2a9b7f449fe65f1fc"
-  integrity sha512-i8mUMYzFYzUpH4a7IBbdOD/87/kyQHvOVAL8J8hvX+E6SQbPd83d+xkpPtRZlRELtjZFqyQMlEcxW+zfMw32vQ==
+"@types/mongodb@*", "@types/mongodb@^3.3.12":
+  version "3.3.12"
+  resolved "https://registry.yarnpkg.com/@types/mongodb/-/mongodb-3.3.12.tgz#c5afa2de5ee5558603ecee8c9366e86e24576703"
+  integrity sha512-gWIdrA8YKC4OetBk4eT5Zsp4p3oy/BJQKt80tXfgPnfBuLigumcmwNZseVSkLQJ3XkN/1OR0/kIunGWlew3rmQ==
   dependencies:
     "@types/bson" "*"
     "@types/node" "*"
@@ -1505,10 +1505,10 @@ registry-url@^3.0.3:
   dependencies:
     rc "^1.0.1"
 
-require-env-variable@^2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/require-env-variable/-/require-env-variable-2.0.1.tgz#a7bb3d432f4edce78330200bb44fc503bcf8129c"
-  integrity sha512-DsytpxF42HCZQDjC9pV+DhuAHOLuwRjEG4jlz6omSb49Y67/9Z07Xxmv76CuoDkrgGXXeFm9fm2PJOZCU5GaWw==
+require-env-variable@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/require-env-variable/-/require-env-variable-3.0.1.tgz#30ac5ff71eb552710305be0f83c7c47a816dd1b3"
+  integrity sha512-CMzlSTinZJ+PuqnJM+JmLmxX+l+Gj/8GPkssEI0hZWiZZfShDKFfDH+4M3865/5fRA66qVtJ4VdCULL4FWiz/g==
 
 require_optional@^1.0.1:
   version "1.0.1"

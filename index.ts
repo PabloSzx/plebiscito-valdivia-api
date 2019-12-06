@@ -16,12 +16,12 @@ const {
   CLAVE_UNICA_CLIENT_SECRET,
   CLAVE_UNICA_SANDBOX_CLIENT_ID,
   CLAVE_UNICA_SANDBOX_CLIENT_SECRET,
-} = requireEnv([
+} = requireEnv(
   "CLAVE_UNICA_SANDBOX_CLIENT_ID",
   "CLAVE_UNICA_SANDBOX_CLIENT_SECRET",
   "CLAVE_UNICA_CLIENT_ID",
-  "CLAVE_UNICA_CLIENT_SECRET",
-]);
+  "CLAVE_UNICA_CLIENT_SECRET"
+);
 
 const redirect_uri_testing =
   "https://plebiscito-valdivia.pablosz.tech/testing/clave_unica/redirect";
@@ -39,10 +39,13 @@ const states: Record<string, boolean> = {};
 
 app.get("/login", async (req, res) => {
   const state = generate(30);
+
   states[state] = true;
+
   const RedirectUrl = req.query.real
     ? `https://accounts.claveunica.gob.cl/openid/authorize?client_id=${CLAVE_UNICA_CLIENT_ID}&response_type=code&scope=openid run name email&redirect_uri=${redirect_uri_real}&state=${state}`
     : `https://accounts.claveunica.gob.cl/openid/authorize?client_id=${CLAVE_UNICA_SANDBOX_CLIENT_ID}&response_type=code&scope=openid run name email&redirect_uri=${redirect_uri_testing}&state=${state}`;
+
   res.send(
     `<html>
       <body>
