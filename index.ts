@@ -29,15 +29,17 @@ const redirect_uri_testing =
 const redirect_uri_real =
   "https://plebiscito-valdivia.pablosz.tech/clave_unica/redirect";
 
-const state = generate(5);
-
 const app = express();
 
 app.use(morgan("combined"));
 
 app.use("/static", express.static(resolve(__dirname, "../static")));
 
+const states: Record<string, boolean> = {};
+
 app.get("/login", async (req, res) => {
+  const state = generate(30);
+  states[state] = true;
   const RedirectUrl = req.query.real
     ? `https://accounts.claveunica.gob.cl/openid/authorize?client_id=${CLAVE_UNICA_CLIENT_ID}&response_type=code&scope=openid run name email&redirect_uri=${redirect_uri_real}&state=${state}`
     : `https://accounts.claveunica.gob.cl/openid/authorize?client_id=${CLAVE_UNICA_SANDBOX_CLIENT_ID}&response_type=code&scope=openid run name email&redirect_uri=${redirect_uri_testing}&state=${state}`;
@@ -55,9 +57,10 @@ app.get("/login", async (req, res) => {
 app.get("/testing/clave_unica/redirect", async (req, res) => {
   const { state, code } = req.query as { state?: string; code?: string };
 
-  if (!state || !code) {
+  if (!state || !code || states[state] === undefined) {
     return res.redirect("/");
   }
+  delete states[state];
 
   try {
     const {
@@ -123,6 +126,7 @@ app.get("/testing/clave_unica/redirect", async (req, res) => {
       {
         upsert: true,
         new: true,
+        projection: "_id",
       }
     ).catch(err => {
       console.error(`Error inserting a new user!`, err);
